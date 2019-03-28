@@ -1,9 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
-#include <fstream>
-
 class BitMap
 {
 	unsigned char m_bmpFileHeader[14];
