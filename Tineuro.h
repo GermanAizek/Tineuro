@@ -84,8 +84,8 @@ public:
 Vector2_SizeT readColorPic(BitMap& pic)
 {
 	Vector2_SizeT vecColor;
-	for (size_t x = 0; x < pic.width(); ++x)
-		for (size_t y = 0; y < pic.height(); ++y)
+	for (size_t x = 0; x < pic.getWidth(); ++x)
+		for (size_t y = 0; y < pic.getHeight(); ++y)
 			vecColor.push_back(pic.getPixel(x, y));
 	
 	return vecColor;

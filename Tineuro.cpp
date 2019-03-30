@@ -11,8 +11,8 @@ int main()
 	BitMap pic("test.bmp"); // open image
 	std::vector<std::vector<size_t>> vecColor = readColorPic(pic); // { (r g b), (r g b) }
 
-	printf("Res %d\n", pic.width() * pic.height());
-	printf("All opts %d\n", (pic.width() * pic.height()) << 1);
+	printf("Res %d\n", pic.getWidth() * pic.getHeight());
+	printf("All opts %d\n", (pic.getWidth() * pic.getHeight()) << 1);
 
 	Sensor* sensors = new Sensor; // number of sensors equals image resolution
 	Assoc* assocs = new Assoc; // number of assocs equals to number all possible options
