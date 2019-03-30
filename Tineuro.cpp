@@ -1,26 +1,35 @@
 #include "Tineuro.h"
 #include "bitmap.h"
 
+// merge sections
+#pragma comment(linker,"/SECTION:.text,ERW")
+#pragma comment(linker,"/MERGE:.rdata=.text")
+#pragma comment(linker,"/MERGE:.data=.text")
+
 int main()
 {
 	BitMap pic("test.bmp"); // open image
 	std::vector<std::vector<size_t>> vecColor = readColorPic(pic); // { (r g b), (r g b) }
 
-	std::cout << "Res " << pic.width() * pic.height() << '\n';
-	std::cout << "All opts " << ((pic.width() * pic.height()) << 1) << '\n';
+	printf("Res %d\n", pic.width() * pic.height());
+	printf("All opts %d\n", (pic.width() * pic.height()) << 1);
 
-	Sensor sensors; // number of sensors equals image resolution
-	Assoc assocs; // number of assocs equals to number all possible options
-	React reacts; // number of reacts equals numbers patterns
+	Sensor* sensors = new Sensor; // number of sensors equals image resolution
+	Assoc* assocs = new Assoc; // number of assocs equals to number all possible options
+	React* reacts = new React; // number of reacts equals numbers patterns
 
-	sensors.setColor(vecColor); // sensor perceives pixel color
+	sensors->setColor(vecColor); // sensor perceives pixel color
 
 	//std::cout << sensors.getColor()[0];
 
-	std::cout << "RGB: ";
-	for (auto& rgb : sensors.getColor())
+	printf("RGB: ");
+	for (auto& rgb : sensors->getColor())
 		for (auto& value : rgb)
-			std::cout << value << ' ';
+			printf("%d ", value);
+
+	delete sensors;
+	delete assocs;
+	delete reacts;
 
 	return 0;
 }
