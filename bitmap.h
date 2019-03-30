@@ -11,14 +11,14 @@ class BitMap
 	int m_bitsPerPixel;
 
 	int m_rowSize;
-	int m_pixelArraySize;
+	size_t m_pixelArraySize;
 
 	unsigned char* m_pixelData;
 
-	char * m_copyname;
-	const char * m_filename;
+	char* m_copyname;
+	const char* m_filename;
 public:
-	BitMap(const char * filename);
+	BitMap(const char* filename);
 	~BitMap();
 
 	std::vector<size_t> getPixel(int x, int y);
@@ -58,7 +58,7 @@ BitMap::BitMap(const char* filename)
 		std::cerr << "Your info header might be different!\nIt should start with 'BM'.\n";
 	}
 
-	size_t* array_offset_ptr = (size_t*)(m_bmpFileHeader + 10);
+	unsigned char* array_offset_ptr = (unsigned char*)(m_bmpFileHeader + 10);
 	m_pixelArrayOffset = *array_offset_ptr;
 
 	if (m_bmpFileHeader[11] != 0 || m_bmpFileHeader[12] != 0 || m_bmpFileHeader[13] != 0)
@@ -73,8 +73,8 @@ BitMap::BitMap(const char* filename)
 		m_bmpInfoHeader[i] = a;
 	}
 
-	int * width_ptr = (int*)(m_bmpInfoHeader + 4);
-	int * height_ptr = (int*)(m_bmpInfoHeader + 8);
+	int* width_ptr = (int*)(m_bmpInfoHeader + 4);
+	int* height_ptr = (int*)(m_bmpInfoHeader + 8);
 
 	m_width = *width_ptr;
 	m_height = *height_ptr;
@@ -98,7 +98,7 @@ BitMap::BitMap(const char* filename)
 	m_pixelData = new unsigned char[m_pixelArraySize];
 
 	inf.seekg(m_pixelArrayOffset, std::ios::beg);
-	for (int i = 0; i < m_pixelArraySize; i++)
+	for (size_t i = 0; i < m_pixelArraySize; i++)
 	{
 		inf >> std::hex >> a;
 		m_pixelData[i] = a;
