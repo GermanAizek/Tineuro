@@ -1,9 +1,7 @@
-﻿# CMakeList.txt: проект CMake для Tineuro; включите исходный код и определения,
-# укажите здесь логику для конкретного проекта.
-#
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.8)
 
-# Добавьте источник в исполняемый файл этого проекта.
+# sources
 add_executable (Tineuro "Tineuro.cpp" "Tineuro.h")
 
-# TODO: Добавьте тесты и целевые объекты, если это необходимо.
+SET(CMAKE_C_COMPILER D:/mingw/mingw64/bin/gcc.exe)
+SET(CMAKE_CXX_COMPILER D:/mingw/mingw64/bin/g++.exe)
