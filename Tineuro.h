@@ -5,46 +5,86 @@
 #include <fstream>
 #include "bitmap.h"
 
+using Vector2_SizeT = std::vector<std::vector<size_t>>;
+using VectorPair2_SizeT = std::vector<std::pair<std::vector<size_t>, std::vector<size_t>>>;
+
 class Sensor
 {
-	std::vector<size_t> vecColor; // (r g b)
+	Vector2_SizeT vecColor; // (r g b)
+	std::vector<Sensor> elements;
 
 public:
-	std::vector<size_t> getColor()
+	Vector2_SizeT getColor()
 	{
 		return vecColor;
 	}
+	void setColor(Vector2_SizeT color)
+	{
+		vecColor = std::move(color);
+	}
+
+	/*
+	std::vector<Sensor> get()
+	{
+		return elements;
+	}
+
+	size_t getSize()
+	{
+		return elements.size();
+	}
+	*/
 };
 
 class Assoc : public Sensor
 {
-	std::vector<std::vector<size_t>> vecPos; // (x y)
+	Vector2_SizeT vecPos; // (x y)
+	std::vector<Assoc> elements;
 
 public:
-	std::vector<std::vector<size_t>> getPos()
+	Vector2_SizeT getPos()
 	{
 		return vecPos;
 	}
+	void setPos(Vector2_SizeT pos)
+	{
+		vecPos = std::move(pos);
+	}
+
+	/*
+	std::vector<Assoc> get()
+	{
+		return elements;
+	}
+	*/
 };
 
 class React : public Sensor, Assoc
 {
-	std::vector<std::pair<std::vector<size_t>, std::vector<size_t>>> vecPattern; // (x y) (r g b)
+	VectorPair2_SizeT vecPattern; // (x y) (r g b)
+	std::vector<React> elements;
 
 public:
-	std::vector<std::pair<std::vector<size_t>, std::vector<size_t>>> getPattern()
+	VectorPair2_SizeT getPattern()
 	{
 		return vecPattern;
 	}
+	void setPattern(VectorPair2_SizeT pattern)
+	{
+		vecPattern = std::move(pattern);
+	}
+
+	/*
+	std::vector<React> get()
+	{
+		return elements;
+	}
+	*/
 };
 
-std::vector<std::vector<size_t>> readColorPic(const char* namefile)
+Vector2_SizeT readColorPic(BitMap& pic)
 {
-	BitMap pic(namefile);
-	std::vector<std::vector<size_t>> vecColor;
-
-	//std::cout << "width = " << pic.width() << ", height = " << pic.height() << '\n';
-
+	Vector2_SizeT vecColor;
 	for (size_t x = 0; x < pic.width(); ++x)
 		for (size_t y = 0; y < pic.height(); ++y)
 			vecColor.push_back(pic.getPixel(x, y));
